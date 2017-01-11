@@ -1,5 +1,5 @@
 'use strict';
-// TODO: Install and require the node postgres package into your server.js, and ensure that it's now a new dependency in your package.json
+// DONE: Install and require the node postgres package into your server.js, and ensure that it's now a new dependency in your package.json
 
 const express = require('express');
 // REVIEW: Require in body-parser for post requests in our server
