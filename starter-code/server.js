@@ -50,11 +50,12 @@ app.post('/articles/insert', function(request, response) {
 
     client.query(
       `INSERT
-        INTO articles
-        (author, authorUrl, body, category, publishedOn, title)
-        VALUES  (${author}, ${authorUrl}, ${body}, ${authorUrl}, ${category}, ${publishedOn}, ${title})
-`, // TODO: Write the SQL query to insert a new record
-      //[], // TODO: Get each value from the request's body
+       INTO articles
+            (author, authorUrl, body, category, publishedOn, title)
+       VALUES  ($1, $2, $3, $4, $5, $6, $7)`,
+        // DONE: Write the SQL query to insert a new record
+      [request.body.author, request.body.authorUrl, request.body.body, request.body.category, request.body.publishedOn, request.body.title],
+      // DONE: Get each value from the request's body
       function(err) {
         if (err) console.error(err);
         client.end();
@@ -71,12 +72,17 @@ app.put('/articles/update', function(request, response) {
     if (err) console.error(err);
 
     client.query(
-      `UPDATE
-        INTO articles
-        SET (author, authorUrl, body, category, publishedOn, title)
-        VALUES  (${author}, ${authorUrl}, ${body}, ${authorUrl}, ${category}, ${publishedOn}, ${title})
+      `UPDATE articles
+        SET (
+          author,
+          authorUrl,
+          body,
+          category,
+          publishedOn,
+          title)
+        VALUES  ($1, $2, $3, $4, $5, $6, $7)
 `, // TODO: Write the SQL query to update an existing record
-      [], // TODO: Get each value from the request's body
+      [author, authorUrl, body, category, publishedOn, title], // TODO: Get each value from the request's body
       function(err) {
         if (err) console.error(err);
         client.end();
@@ -93,11 +99,7 @@ app.delete('/articles/delete', function(request, response) {
     if (err) console.error(err);
 
     client.query(
-      `DELETE
-        FROM articles
-        WHERE (author, authorUrl, body, category, publishedOn, title)
-        VALUES  (${author}, ${authorUrl}, ${body}, ${authorUrl}, ${category}, ${publishedOn}, ${title})
-`, // TODO: Write the SQL query to delete a record
+      `DELETE FROM employees WHERE id = ?`, [request.body.id], // TODO: Write the SQL query to delete a record
       function(err) {
         if (err) console.error(err);
         client.end();
