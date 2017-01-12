@@ -1,7 +1,8 @@
 'use strict';
-// TODO: Install and require the node postgres package into your server.js, and ensure that it's now a new dependency in your package.json
+// DONE: Install and require the node postgres package into your server.js, and ensure that it's now a new dependency in your package.json
 
 const express = require('express');
+const pg = require ('pg');
 // REVIEW: Require in body-parser for post requests in our server
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 3000;
@@ -48,8 +49,12 @@ app.post('/articles/insert', function(request, response) {
     if (err) console.error(err);
 
     client.query(
-      ``, // TODO: Write the SQL query to insert a new record
-      [], // TODO: Get each value from the request's body
+      `INSERT
+        INTO articles
+        (author, authorUrl, body, category, publishedOn, title)
+        VALUES  (${author}, ${authorUrl}, ${body}, ${authorUrl}, ${category}, ${publishedOn}, ${title})
+`, // TODO: Write the SQL query to insert a new record
+      //[], // TODO: Get each value from the request's body
       function(err) {
         if (err) console.error(err);
         client.end();
@@ -66,7 +71,11 @@ app.put('/articles/update', function(request, response) {
     if (err) console.error(err);
 
     client.query(
-      ``, // TODO: Write the SQL query to update an existing record
+      `UPDATE
+        INTO articles
+        SET (author, authorUrl, body, category, publishedOn, title)
+        VALUES  (${author}, ${authorUrl}, ${body}, ${authorUrl}, ${category}, ${publishedOn}, ${title})
+`, // TODO: Write the SQL query to update an existing record
       [], // TODO: Get each value from the request's body
       function(err) {
         if (err) console.error(err);
@@ -84,7 +93,11 @@ app.delete('/articles/delete', function(request, response) {
     if (err) console.error(err);
 
     client.query(
-      ``, // TODO: Write the SQL query to delete a record
+      `DELETE
+        FROM articles
+        WHERE (author, authorUrl, body, category, publishedOn, title)
+        VALUES  (${author}, ${authorUrl}, ${body}, ${authorUrl}, ${category}, ${publishedOn}, ${title})
+`, // TODO: Write the SQL query to delete a record
       function(err) {
         if (err) console.error(err);
         client.end();
